@@ -13,7 +13,7 @@ base::~base()
 {
     Clean();
 }
-bool base::loadImg(std::string path, SDL_Renderer* screen) 
+bool base::loadImg(string path, SDL_Renderer* screen) 
 {
     Clean();
     SDL_Texture* newTexture = NULL;
