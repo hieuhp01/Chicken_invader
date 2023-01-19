@@ -1,32 +1,40 @@
 #include "bullet.h"
 
-bullet::bullet() {
+bullet::bullet() 
+{
     x_val_ = 0;
     y_val_ = 0;
     is_move_ = false;
     bullet_type_ = BLASTER;
 }
-bullet::~bullet() {
+bullet::~bullet() 
+{
 
 }
 
-void bullet::loadImgBullet(SDL_Renderer* screen) {
-    if (bullet_type_ == BLASTER) {
+void bullet::loadImgBullet(SDL_Renderer* screen) 
+{
+    if (bullet_type_ == BLASTER) 
+    {
         string blaster_str = "PNG//Lasers//laserRed02.png";
         loadImg(blaster_str, screen);
     }
     
 }
 
-void bullet::HandleMoveSpaceShipBullet() {
+void bullet::HandleMoveSpaceShipBullet()
+{
     rect_.y += y_val_;
-    if (rect_.y < -rect_.h) {
+    if (rect_.y < -rect_.h) 
+    {
         is_move_ = false;
     }
 }
-void bullet::HandleMoveChickenBullet() {
+void bullet::HandleMoveChickenBullet() 
+{
     rect_.y += y_val_;
-    if (rect_.y > SCREEN_HEIGHT) {
+    if (rect_.y > SCREEN_HEIGHT)
+    {
         is_move_ = false;
     }
 }
