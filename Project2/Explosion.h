@@ -6,7 +6,8 @@
 #define HEIGHT_FRAME_EXP 165
 #define NUMBER_OF_FRAME 8
 
-class Explosion : public base {
+class Explosion : public base
+{
 public:
     Explosion();
     ~Explosion();
