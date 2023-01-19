@@ -1,6 +1,7 @@
 #include "chicken.h"
 
-Chicken::Chicken() {
+Chicken::Chicken() 
+{
     rect_.x = SCREEN_WIDTH;
     rect_.y = SCREEN_HEIGHT / 2;
     x_val_ = 0;
@@ -13,10 +14,12 @@ Chicken::Chicken() {
     heart_ = 0;
     come_back_ = true;
 }
-Chicken::~Chicken() {
+Chicken::~Chicken() 
+{
 
 }
-SDL_Rect Chicken::GetRectFrame() {
+SDL_Rect Chicken::GetRectFrame() 
+{
     SDL_Rect rect;
     rect.x = rect_.x;
     rect.y = rect_.y;
