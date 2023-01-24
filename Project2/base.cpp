@@ -20,6 +20,7 @@ bool base::loadImg(string path, SDL_Renderer* screen)
     SDL_Surface* loadSurface = IMG_Load(path.c_str());
     if (loadSurface != NULL)
     {
+        //Color key the image before creating texture from it
         SDL_SetColorKey(loadSurface, SDL_TRUE, SDL_MapRGB(loadSurface->format, 170, 170, 170));
         newTexture = SDL_CreateTextureFromSurface(screen, loadSurface);
         if (newTexture != NULL) 
