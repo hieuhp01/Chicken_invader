@@ -16,13 +16,15 @@ void game_management::init(string title)
     {
         isRunning = false;
     }
-    else {
+    else 
+    {
         gWindow = SDL_CreateWindow(title.c_str(), SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, SCREEN_WIDTH, SCREEN_HEIGHT, SDL_WINDOW_SHOWN);
         if (gWindow == NULL) 
         {
             isRunning = false;
         }
-        else {
+        else 
+        {
             SDL_SetHint(SDL_HINT_RENDER_SCALE_QUALITY, "1");
 
             gRenderer = SDL_CreateRenderer(gWindow, -1, SDL_RENDERER_ACCELERATED | SDL_RENDERER_PRESENTVSYNC);
@@ -30,7 +32,8 @@ void game_management::init(string title)
             {
                 isRunning = false;
             }
-            else {
+            else
+            {
                 SDL_SetRenderDrawColor(gRenderer, RENDER_DRAW_COLOR, RENDER_DRAW_COLOR, RENDER_DRAW_COLOR, RENDER_DRAW_COLOR);
 
                 int imgFlags = IMG_INIT_PNG;
@@ -109,7 +112,8 @@ void game_management::init(string title)
     isRunning = true;
 }
 
-bool game_management::check_collision(const SDL_Rect& object1, const SDL_Rect& object2) {
+bool game_management::check_collision(const SDL_Rect& object1, const SDL_Rect& object2)
+{
     int left_a = object1.x;
     int right_a = object1.x + object1.w;
     int top_a = object1.y;
@@ -120,7 +124,8 @@ bool game_management::check_collision(const SDL_Rect& object1, const SDL_Rect& o
     int top_b = object2.y;
     int bottom_b = object2.y + object2.h;
 
-    if (left_a > right_b || right_a < left_b || top_a > bottom_b || bottom_a < top_b) {
+    if (left_a > right_b || right_a < left_b || top_a > bottom_b || bottom_a < top_b) 
+    {
         return false;
     }
     return true;
