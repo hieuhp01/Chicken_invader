@@ -10,6 +10,7 @@ Explosion::~Explosion()
 }
 void Explosion::set_clip() 
 {
+    //divide the spritesheet of explosion into 8 explosion frame
     for (int i = 0; i < 8; i++) 
     {
         clip_[i].x = i * WIDTH_FRAME_EXP;
