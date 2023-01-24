@@ -12,6 +12,7 @@ game_management::~game_management()
 }
 void game_management::init(string title) 
 {
+    //create window, render screen, creat renderer for render image and font
     if (SDL_Init(SDL_INIT_VIDEO) < 0)
     {
         isRunning = false;
@@ -95,7 +96,7 @@ void game_management::init(string title)
         }
     }
 
-    //init exp
+    //init explosion
     exp.loadImg("PNG//exp.png", gRenderer);
     exp.set_clip();
 
@@ -135,10 +136,11 @@ void game_management::handle_event()
 {
     while (SDL_PollEvent(&gEvent))
     {
-        if (gEvent.type == SDL_QUIT)
+        if (gEvent.type == SDL_QUIT) // make you quit the game using button x in the upright corner
         {
             isRunning = false;
         }
+        //handle the spaceship_movement using keyboard
         spaceship.Control(gEvent, gRenderer);
     }
 }
@@ -152,6 +154,7 @@ void game_management::handle_chicken()
             Chicken* p_chicken = p_chicken_list.at(ck);
             if (p_chicken)
             {
+                //handle properties of each chicken that init
                 p_chicken->Move();
                 p_chicken->Show(gRenderer);
                 p_chicken->HandleBullet(gRenderer);
@@ -168,6 +171,7 @@ void game_management::handle_chicken()
                     Col1 = check_collision(p_bullet->GetRect(), spaceship.GetRect());
                     if (Col1 == true) 
                     {
+                        //chicken_bullet remove after collapse with spaceship
                         p_chicken->RemoveBullet(b);
                         break;
                     }
@@ -176,7 +180,7 @@ void game_management::handle_chicken()
 
             //check spaceship with chicken
             bool Col2 = check_collision(spaceship.GetRect(), p_chicken->GetRectFrame());
-            if (Col1 || Col2) 
+            if (Col1 || Col2) //if spaceship collapse with chicken or chicken_bullet
             {
                 
                 //set exp
@@ -203,7 +207,7 @@ void game_management::handle_chicken()
                     if (Col3)
                     {
                         //chicken_HP -= spaceship_bullet_damage
-                        //spaceship_bullet disappear after collapse
+                        //spaceship_bullet remove after collapse
                         p_chicken->Decrease((spaceship.get_bullet_damage()));
                         spaceship.RemoveBullet(sb);
 
