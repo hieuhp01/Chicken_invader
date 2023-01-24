@@ -18,10 +18,12 @@ bool base::loadImg(std::string path, SDL_Renderer* screen)
     Clean();
     SDL_Texture* newTexture = NULL;
     SDL_Surface* loadSurface = IMG_Load(path.c_str());
-    if (loadSurface != NULL) {
+    if (loadSurface != NULL)
+    {
         SDL_SetColorKey(loadSurface, SDL_TRUE, SDL_MapRGB(loadSurface->format, 170, 170, 170));
         newTexture = SDL_CreateTextureFromSurface(screen, loadSurface);
-        if (newTexture != NULL) {
+        if (newTexture != NULL) 
+        {
             rect_.w = loadSurface->w;
             rect_.h = loadSurface->h;
         }
@@ -37,7 +39,8 @@ void base::Render(SDL_Renderer* screen, const SDL_Rect* clip)
 }
 void base::Clean()
 {
-    if (object_ != NULL) {
+    if (object_ != NULL) 
+    {
         SDL_DestroyTexture(object_);
         object_ = NULL;
         rect_.w = 0;
