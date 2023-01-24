@@ -2,15 +2,15 @@
 #include "base.h"
 #include "common.h"
 
-class Text : public base {
+class Text : public base 
+{
 public:
     Text();
     ~Text();
 
-    enum TEXT_COLOR {
-        RED = 5,
-        WHITE = 6,
-        BLACK = 7,
+    enum TEXT_COLOR 
+    {
+        WHITE = 5
     };
 
     void SetText(const string& text) { text_ = text; }

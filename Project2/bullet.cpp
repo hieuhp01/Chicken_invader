@@ -24,7 +24,7 @@ void bullet::loadImgBullet(SDL_Renderer* screen)
 
 void bullet::HandleMoveSpaceShipBullet() 
 {
-    rect_.y += y_val_;
+    rect_.y += y_val_; // the bullet go vertical down to up
     if (rect_.y < -rect_.h) 
     {
         is_move_ = false;
@@ -32,8 +32,8 @@ void bullet::HandleMoveSpaceShipBullet()
 }
 void bullet::HandleMoveChickenBullet()
 {
-    rect_.y += y_val_;
-    if (rect_.y > SCREEN_HEIGHT)
+    rect_.y += y_val_; //the bulelt go vertical up to down
+    if (rect_.y > SCREEN_HEIGHT) // if it reach border it disappear
     {
         is_move_ = false;
     }

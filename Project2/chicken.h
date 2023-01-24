@@ -25,8 +25,8 @@ public:
     void set_clips();
     SDL_Rect GetRectFrame();
 
-    void set_bullet_list(std::vector<bullet*> bullet_list) { bullet_list_ = bullet_list; }
-    std::vector<bullet*> get_bullet_list() { return bullet_list_; }
+    void set_bullet_list(vector<bullet*> bullet_list) { bullet_list_ = bullet_list; }
+    vector<bullet*> get_bullet_list() { return bullet_list_; }
     void InitBullet(bullet* p_bullet, SDL_Renderer* screen);
     void HandleBullet(SDL_Renderer* screen);
     void RemoveBullet(const int& idx);
@@ -40,7 +40,7 @@ public:
     void set_status_right();
 private:
     float heart_;
-    std::vector<bullet*> bullet_list_;
+    vector<bullet*> bullet_list_;
 
     int x_val_;
     int y_val_;

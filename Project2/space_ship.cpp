@@ -21,8 +21,10 @@ space_ship::~space_ship()
 }
 void space_ship::Control(SDL_Event event, SDL_Renderer* screen) 
 {
-    if (event.type == SDL_KEYDOWN && event.key.repeat == 0) {
-        switch (event.key.keysym.sym) {
+    if (event.type == SDL_KEYDOWN && event.key.repeat == 0)
+    {
+        switch (event.key.keysym.sym) 
+        {
         case SDLK_w:
             y_val_ -= MAIN_SPEED;
             break;
@@ -37,8 +39,10 @@ void space_ship::Control(SDL_Event event, SDL_Renderer* screen)
             break;
         }
     }
-    else if (event.type == SDL_KEYUP && event.key.repeat == 0) {
-        switch (event.key.keysym.sym) {
+    else if (event.type == SDL_KEYUP && event.key.repeat == 0)
+    {
+        switch (event.key.keysym.sym) 
+        {
         case SDLK_w:
             y_val_ += MAIN_SPEED;
             break;
@@ -53,13 +57,17 @@ void space_ship::Control(SDL_Event event, SDL_Renderer* screen)
             break;
         }
     }
-    if (event.type == SDL_KEYDOWN && event.key.repeat == 0) {
-        if (event.key.keysym.sym == SDLK_SPACE) {
-            if (status == true) {
+    if (event.type == SDL_KEYDOWN && event.key.repeat == 0) 
+    {
+        if (event.key.keysym.sym == SDLK_SPACE)
+        {
+            if (status == true)
+            {
                 bullet* p_bullet = new bullet();
                 p_bullet->set_bullet_type(bullet_type_);
 
-                if (bullet_type_ == BLASTER) {
+                if (bullet_type_ == BLASTER)
+                {
 
                     p_bullet->set_y_val(-BLASTER_SPEED);
                     bullet_damage_ = 1.5;
@@ -74,7 +82,8 @@ void space_ship::Control(SDL_Event event, SDL_Renderer* screen)
     }
     if (event.key.keysym.sym == SDLK_RETURN) 
     {
-        if (heart_ > 0) {
+        if (heart_ > 0)
+        {
             if (status == false) {
                 status = true;
                 rect_.x = SCREEN_WIDTH / 2;
@@ -84,34 +93,44 @@ void space_ship::Control(SDL_Event event, SDL_Renderer* screen)
     }
 }
 
-void space_ship::Show(SDL_Renderer* screen) {
+void space_ship::Show(SDL_Renderer* screen)
+{
     if (status == true) {
         Render(screen);
     }
 }
-void space_ship::Move() {
-    if (status == true) {
+void space_ship::Move()
+{
+    if (status == true) 
+    {
         rect_.x += x_val_;
-        if (rect_.x < 0 || rect_.x + WIDTH_MAIN > SCREEN_WIDTH) {
+        if (rect_.x < 0 || rect_.x + WIDTH_MAIN > SCREEN_WIDTH) 
+        {
             rect_.x -= x_val_;
         }
         rect_.y += y_val_;
-        if (rect_.y < 0 || rect_.y + HEIGHT_MAIN > SCREEN_HEIGHT) {
+        if (rect_.y < 0 || rect_.y + HEIGHT_MAIN > SCREEN_HEIGHT) 
+        {
             rect_.y -= y_val_;
         }
     }
 }
 
-void space_ship::HandleBullet(SDL_Renderer* screen) {
-    for (int i = 0; i < bullet_list_.size(); i++) {
+void space_ship::HandleBullet(SDL_Renderer* screen) 
+{
+    for (int i = 0; i < bullet_list_.size(); i++) 
+    {
         bullet* p_bullet = bullet_list_.at(i);
         if (p_bullet != NULL) {
-            if (p_bullet->get_is_move()) {
+            if (p_bullet->get_is_move()) 
+            {
                 p_bullet->Render(screen);
                 p_bullet->HandleMoveSpaceShipBullet();
             }
-            else {
-                if (p_bullet != NULL) {
+            else
+            {
+                if (p_bullet != NULL) 
+                {
                     bullet_list_.erase(bullet_list_.begin() + i);
 
                     delete p_bullet;
@@ -121,13 +140,17 @@ void space_ship::HandleBullet(SDL_Renderer* screen) {
         }
     }
 }
-void space_ship::RemoveBullet(const int& idx) {
-    for (int i = 0; i < bullet_list_.size(); i++) {
-        if (idx < bullet_list_.size()) {
+void space_ship::RemoveBullet(const int& idx) 
+{
+    for (int i = 0; i < bullet_list_.size(); i++) 
+    {
+        if (idx < bullet_list_.size()) 
+        {
             bullet* p_bullet = bullet_list_.at(idx);
             bullet_list_.erase(bullet_list_.begin() + idx);
 
-            if (p_bullet != NULL) {
+            if (p_bullet != NULL) 
+            {
                 delete p_bullet;
                 p_bullet = NULL;
             }

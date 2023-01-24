@@ -14,7 +14,8 @@ public:
     space_ship();
     ~space_ship();
 
-    enum BULLET_SPEED {
+    enum BULLET_SPEED
+    {
         BLASTER_SPEED = 6
     };
 

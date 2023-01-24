@@ -2,7 +2,8 @@
 #include "base.h"
 #include "common.h"
 
-class bullet : public base {
+class bullet : public base 
+{
 public:
     bullet();
     ~bullet();

@@ -1,7 +1,8 @@
 #pragma once
 #include "common.h"
 
-class base {
+class base 
+{
 public:
     base();
     ~base();

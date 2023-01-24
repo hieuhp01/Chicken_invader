@@ -17,6 +17,7 @@ Chicken::~Chicken() {
 
 }
 SDL_Rect Chicken::GetRectFrame() {
+    // Get the rectangular frame of each chicken
     SDL_Rect rect;
     rect.x = rect_.x;
     rect.y = rect_.y;
@@ -26,6 +27,7 @@ SDL_Rect Chicken::GetRectFrame() {
 }
 void Chicken::set_clips() 
 {
+    // divide the spritesheet of chicken into 18 chicken frames
     for (int i = 0; i < 18; i++) 
     {
         clip_[i].x = i * WIDTH_CHICKEN;
@@ -55,13 +57,14 @@ void Chicken::HandleBullet(SDL_Renderer* screen)
         bullet* p_bullet = bullet_list_.at(i);
         if (p_bullet) 
         {
-            if (p_bullet->get_is_move()) 
+            if (p_bullet->get_is_move()) //if bullet is init
             {
                 p_bullet->Render(screen);
                 p_bullet->HandleMoveChickenBullet();
             }
-            else 
+            else //if bullet isn't init
             {
+                //make bullet at chicken position then set it move
                 p_bullet->SetRect(this->rect_.x + WIDTH_CHICKEN / 2 - p_bullet->GetRect().w / 2, this->rect_.y + HEIGHT_CHICKEN);
                 p_bullet->set_is_move(true);
             }
@@ -99,22 +102,22 @@ void Chicken::Move()
             rect_.y -= 2 * y_val_;
         }
 
-        if (rect_.y > SCREEN_HEIGHT)
+        if (rect_.y > SCREEN_HEIGHT) // if chicken reach the lowerborder then go up 
         {
             status_.turn_up = 1;
             status_.turn_down = 0;
         }
-        else if (rect_.y + HEIGHT_CHICKEN < 0)
+        else if (rect_.y + HEIGHT_CHICKEN < 0) // if chicken reach the upperborder then go down
         {
             status_.turn_down = 1;
             status_.turn_up = 0;
         }
-        if (rect_.x <= -WIDTH_CHICKEN * 3) 
+        if (rect_.x <= -WIDTH_CHICKEN * 4) // if chicken reach leftborder then go right
         {
             status_.turn_right = 1;
             status_.turn_left = 0;
         }
-        else if (rect_.x >= SCREEN_WIDTH + 3 * WIDTH_CHICKEN) 
+        else if (rect_.x >= SCREEN_WIDTH + 4 * WIDTH_CHICKEN) // if chicken reach rightborder then go left
         {
             status_.turn_left = 1;
             status_.turn_right = 0;
@@ -123,6 +126,7 @@ void Chicken::Move()
 }
 void Chicken::RemoveBullet(const int& idx) 
 {
+    //Remove the bullet the moment after it collapse
     for (int i = 0; i < bullet_list_.size(); i++) 
     {
         if (idx < bullet_list_.size()) 
@@ -140,6 +144,7 @@ void Chicken::RemoveBullet(const int& idx)
 }
 void Chicken::set_status_right()
 {
+    // make chickens turn right at init
     status_.turn_down = 0;
     status_.turn_up = 0;
     status_.turn_left = 0;

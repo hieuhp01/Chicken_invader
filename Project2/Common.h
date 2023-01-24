@@ -11,7 +11,7 @@ using namespace std;
 const int BACKGROUND_WIDTH = 1200;
 const int BACKGROUND_HEIGHT = 3840;
 const int SCREEN_WIDTH = 1200;
-const int SCREEN_HEIGHT = 760;
+const int SCREEN_HEIGHT = 720;
 const float SCREEN_SPEED = 0.4;
 
 
@@ -23,7 +23,8 @@ const int DISTANCE_BETWEEN_CHICKENS = 100;
 const int NUMBER_OF_CHICKENS_PER_ROW = 12;
 const int BLASTER = 0;
 
-struct StatusChicken {
+struct StatusChicken 
+{
     int turn_left;
     int turn_right;
     int turn_up;

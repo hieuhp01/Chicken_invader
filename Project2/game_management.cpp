@@ -12,19 +12,22 @@ game_management::~game_management()
 }
 void game_management::init(string title) 
 {
-    if (SDL_Init(SDL_INIT_VIDEO) < 0) {
+    if (SDL_Init(SDL_INIT_VIDEO) < 0)
+    {
         isRunning = false;
     }
     else {
         gWindow = SDL_CreateWindow(title.c_str(), SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, SCREEN_WIDTH, SCREEN_HEIGHT, SDL_WINDOW_SHOWN);
-        if (gWindow == NULL) {
+        if (gWindow == NULL) 
+        {
             isRunning = false;
         }
         else {
             SDL_SetHint(SDL_HINT_RENDER_SCALE_QUALITY, "1");
 
             gRenderer = SDL_CreateRenderer(gWindow, -1, SDL_RENDERER_ACCELERATED | SDL_RENDERER_PRESENTVSYNC);
-            if (gRenderer == NULL) {
+            if (gRenderer == NULL)
+            {
                 isRunning = false;
             }
             else {
@@ -57,24 +60,33 @@ void game_management::init(string title)
     //init chicken
     int t = 0;
     int y_row = 0;
-    for (int c = 0; c < NUMBER_OF_CHICKEN; c++) {
+    for (int c = 0; c < NUMBER_OF_CHICKEN; c++) 
+    {
         Chicken* p_chicken = new Chicken();
-        if (p_chicken) {
+        if (p_chicken) 
+        {
+            //get chicken_image
             p_chicken->loadImg("PNG//chicken_red.png", gRenderer);
             p_chicken->set_clips();
-            if (t % NUMBER_OF_CHICKENS_PER_ROW == 0) {
+            //make row of chicken 
+            //36 chickens, 12 chickens per row
+            if (t % NUMBER_OF_CHICKENS_PER_ROW == 0) 
+            {
                 y_row -= DISTANCE_BETWEEN_CHICKENS;
                 t = 0;
             }
+            //set chicken_properties
             p_chicken->SetRect(5 + t * DISTANCE_BETWEEN_CHICKENS, y_row);
             p_chicken->set_y_val(CHICKEN_SPEED);
             p_chicken->set_x_val(CHICKEN_SPEED);
             p_chicken->set_heart(CHICKEN_HEART);
             int random = rand() % 10;
-            if (random < 3) {
+            if (random < 3) 
+            {
                 bullet* p_bullet = new bullet();
                 p_chicken->InitBullet(p_bullet, gRenderer);
             }
+            //put the chicken into chicken_list to handle
             p_chicken_list.push_back(p_chicken);
             t++;
         }
@@ -84,6 +96,7 @@ void game_management::init(string title)
     exp.loadImg("PNG//exp.png", gRenderer);
     exp.set_clip();
 
+    //init kill, hp image
     support.loadImg("PNG//support.png", gRenderer);
     support.SetRect(-20, 10);
 
@@ -125,11 +138,15 @@ void game_management::handle_event()
     }
 }
 
-void game_management::handle_chicken() {
-    if (kill < NUMBER_OF_CHICKEN * 5) {
-        for (int ck = 0; ck < p_chicken_list.size(); ck++) {
+void game_management::handle_chicken() 
+{
+    if (kill < NUMBER_OF_CHICKEN * 5) 
+    {
+        for (int ck = 0; ck < p_chicken_list.size(); ck++) 
+        {
             Chicken* p_chicken = p_chicken_list.at(ck);
-            if (p_chicken) {
+            if (p_chicken)
+            {
                 p_chicken->Move();
                 p_chicken->Show(gRenderer);
                 p_chicken->HandleBullet(gRenderer);
@@ -138,20 +155,24 @@ void game_management::handle_chicken() {
             //check spaceship with chicken_bullet
             bool Col1 = false;
             vector<bullet*> bullet_list = p_chicken->get_bullet_list();
-            for (int b = 0; b < bullet_list.size(); b++) {
+            for (int b = 0; b < bullet_list.size(); b++) 
+            {
                 bullet* p_bullet = bullet_list.at(b);
-                if (p_bullet) {
+                if (p_bullet)
+                {
                     Col1 = check_collision(p_bullet->GetRect(), spaceship.GetRect());
-                    if (Col1 == true) {
+                    if (Col1 == true) 
+                    {
                         p_chicken->RemoveBullet(b);
                         break;
                     }
                 }
             }
 
-            //check spacecraft with chicken
+            //check spaceship with chicken
             bool Col2 = check_collision(spaceship.GetRect(), p_chicken->GetRectFrame());
-            if (Col1 || Col2) {
+            if (Col1 || Col2) 
+            {
                 
                 //set exp
                 int x_pos = (spaceship.GetRect().x + WIDTH_MAIN / 2) - WIDTH_FRAME_EXP / 2;
@@ -159,7 +180,8 @@ void game_management::handle_chicken() {
                 exp.SetRect(x_pos, y_pos);
                 exp.set_frame(0);
 
-                spaceship.SetRect(SCREEN_WIDTH * 2, SCREEN_HEIGHT * 2);
+                // make spaceship stay outside of the screen when it explode
+                spaceship.SetRect(SCREEN_WIDTH*2 , SCREEN_HEIGHT*2 );
                 spaceship.set_status(false);
                 spaceship.decrease_heart();
             }
@@ -167,20 +189,29 @@ void game_management::handle_chicken() {
 
             //check spaceship_bullet with chicken
             vector<bullet*> s_bullet_list = spaceship.get_bullet_list();
-            for (int sb = 0; sb < s_bullet_list.size(); sb++) {
+            for (int sb = 0; sb < s_bullet_list.size(); sb++) 
+            {
                 bullet* p_bullet = s_bullet_list.at(sb);
-                if (p_bullet != NULL) {
+                if (p_bullet != NULL)
+                {
                     bool Col3 = check_collision(p_bullet->GetRect(), p_chicken->GetRectFrame());
-                    if (Col3) {
+                    if (Col3)
+                    {
+                        //chicken_HP -= spaceship_bullet_damage
+                        //spaceship_bullet disappear after collapse
                         p_chicken->Decrease((spaceship.get_bullet_damage()));
                         spaceship.RemoveBullet(sb);
 
-                        if (p_chicken->get_heart() <= 0) {
+                        if (p_chicken->get_heart() <= 0)
+                        {
+                            //make the chicken comeback
                             p_chicken->set_heart(CHICKEN_HEART);
+                            //+point
                             kill++;
-
+                            //set the respawn position of the killed chicken
                             p_chicken->SetRect(p_chicken->GetRect().x, -3 * SCREEN_HEIGHT);
-                            if (kill > NUMBER_OF_CHICKEN*5) {
+                            if (kill > NUMBER_OF_CHICKEN*5) 
+                            {
                                 p_chicken->set_come_back(false);
                             }
                         }
@@ -231,7 +262,8 @@ void game_management::handle_game()
             end_game.loadText_showText(g_font_end_game, gRenderer);
     }
     else {
-        if (spaceship.get_status() == false) {
+        if (spaceship.get_status() == false) 
+        {
             hint.SetText("Press 'ENTER' to revive !");
             hint.SetRect(280, SCREEN_HEIGHT / 4);
             hint.loadText_showText(g_font_menu, gRenderer);
