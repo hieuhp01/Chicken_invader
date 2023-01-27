@@ -79,6 +79,8 @@ void Chicken::InitBullet(bullet* p_bullet, SDL_Renderer* screen)
     {
         if (p_bullet->loadImg("PNG//egg.png", screen)) 
         {
+            //Set the status of chicken_bullet to move
+            //Set the init position of chicken_bullet and handle all the chicken_bullet that are fired
             p_bullet->set_is_move(true);
             p_bullet->SetRect(this->rect_.x + WIDTH_CHICKEN / 2 - p_bullet->GetRect().w / 2, this->rect_.y + HEIGHT_CHICKEN);
             p_bullet->set_y_val(CHICKEN_BULLET_SPEED);
