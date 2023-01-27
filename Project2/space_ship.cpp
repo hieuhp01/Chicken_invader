@@ -103,6 +103,7 @@ void space_ship::Move()
 {
     if (status == true) 
     {
+        //Make the spaceship cannot move out of the screen
         rect_.x += x_val_;
         if (rect_.x < 0 || rect_.x + WIDTH_MAIN > SCREEN_WIDTH) 
         {
@@ -122,15 +123,17 @@ void space_ship::HandleBullet(SDL_Renderer* screen)
     {
         bullet* p_bullet = bullet_list_.at(i);
         if (p_bullet != NULL) {
-            if (p_bullet->get_is_move()) 
+            if (p_bullet->get_is_move()) //if the status of the bullet_movement is true
             {
+                //Render the bullet and handle it
                 p_bullet->Render(screen);
                 p_bullet->HandleMoveSpaceShipBullet();
             }
-            else
+            else  //if the status of the bullet_movement is false
             {
-                if (p_bullet != NULL) 
+                if (p_bullet != NULL) //if the spaceship still can fire bullet and that bullet can't move
                 {
+                    //erase that bullet 
                     bullet_list_.erase(bullet_list_.begin() + i);
 
                     delete p_bullet;
